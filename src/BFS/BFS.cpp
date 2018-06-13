@@ -10,6 +10,9 @@ using namespace std;
 struct node
 {
     int n;			// nr wierzchołka
+    int colour;
+    int parent;
+    int d;
     node * next;
 };
 
@@ -17,17 +20,17 @@ struct node
 const int V = 5;
 
 
-void BFS(int s, node * G[V], int colour[V], int parent[V], int d[V])		// s - wierzchołek startowy
+void BFS(int s, node * G[V])		// s - wierzchołek startowy
 {
     queue < int > Q;
     for (int i = 0; i < V; i++)
     {
-        colour[i] = 0;			// wszystkie wierzchołki kolorujemy na biało
-        d[i] = INT_MAX;
+        G[i]->colour = 0;			// wszystkie wierzchołki kolorujemy na biało
+        G[i]->d = INT_MAX;
     }
-    d[s] = 0;
-    colour[s] = 1;		// wierzch. startowy - na czarno
-    parent[s] = -1;
+    G[s]->d = 0;
+    G[s]->colour = 1;		// wierzch. startowy - na czarno
+    G[s]->parent = -1;
     Q.push(s);		// umieszcza s w kolejce
 
     while (!Q.empty())
@@ -39,15 +42,15 @@ void BFS(int s, node * G[V], int colour[V], int parent[V], int d[V])		// s - wie
         for (node * i = G[u]; i != NULL; i = i->next)
         {
             int v = i->n;
-            if (colour[v] == 0)
+            if (G[v]->colour == 0)
             {
-                colour[v] = 1;
+                G[v]->colour = 1;
                 Q.push(v);					// w kolejce są zawsze szare wierzchołki
-                parent[v] = u;
-                d[v] = d[u] + 1;
+                G[v]->parent = u;
+                G[v]->d = G[u]->d + 1;
             }
         }
-        colour[u] = 2;
+        G[u]->colour = 2;
     }
 }
 
@@ -140,7 +143,7 @@ int main()
     int parent1[V];
     int d1[V];
 
-    BFS(3, G, colour1, parent1, d1);
+    BFS(3, G);
     cout << endl;
 
     int Gts[V][V] = { {0, 0, 1, 0, 1}, {0, 0, 1, 0, 0}, {0, 0, 0, 1, 0}, {1, 0, 0, 0, 0}, {0, 1, 0, 0, 0} };
@@ -153,7 +156,7 @@ int main()
     int parent2[V];
     int d2[V];
 
-    BFS(0, Gs, colour2, parent2, d2);
+    BFS(0, Gs);
 
     int a;
     cin >> a;

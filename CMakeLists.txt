@@ -3,5 +3,5 @@ project(Graphs)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES BFS/BFS.cpp)
+set(SOURCE_FILES src/BFS/BFS.cpp)
 add_executable(Graphs ${SOURCE_FILES})

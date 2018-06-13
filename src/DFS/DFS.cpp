@@ -3,8 +3,11 @@ using namespace std;
 
 struct node
 {
-	int n;			// nr wierzcho³ka
+	int n;			// nr wierzchoï¿½ka
 	node * next;
+	int parent;
+	bool visited;
+	int times;
 };
 
 
@@ -12,44 +15,44 @@ const int N = 5;
 
 
 
-void DFSVisit(node * lists[], int v, int &time, int parent[], bool visited[], int times[])
+void DFSVisit(node * G[], int v, int &time)
 {
-	visited[v] = true;
+	G[v]->visited = true;
 	cout << v << " ";
 	time++;
-	for (node * temp = lists[v]; temp != NULL; temp = temp->next)
+	for (node * temp = G[v]; temp != NULL; temp = temp->next)
 	{
 		int u = temp->n;
-		if (!visited[u])
+		if (!G[u]->visited)
 		{
-			parent[u] = v;
-			DFSVisit(lists, u, time, parent, visited, times);
+			G[u]->parent = v;
+			DFSVisit(G, u, time);
 		}
 	}
-	times[v] = time;
+	G[v]->times = time;
 }
 
 
 
-void DFS(bool visited[], int times[], node * lists[], int parent[])
+void DFS(node * G[])
 {
 	for (int i = 0; i < N; i++)
 	{
-		visited[i] = false;
-		times[i] = -1;		// moment przetwarzania
+		G[i]->visited = false;
+		G[i]->times = -1;		// moment przetwarzania
 	}
 	int time = 0;
 	for (int i = 0; i < N; i++)
 	{
-		if (!visited[i])
-			DFSVisit(lists, i, time, parent, visited, times);
+		if (!G[i]->visited)
+			DFSVisit(G, i, time);
 	}
 }
 
 
 
 
-void tab_to_lists(int Gtab[N][N], node * G[N])
+void tab_to_G(int Gtab[N][N], node * G[N])
 {
 	for (int i = 0; i < N - 1; i++)
 	{
@@ -92,7 +95,7 @@ void tab_to_lists(int Gtab[N][N], node * G[N])
 }
 
 
-void tab_to_lists_skier(int Gtab[N][N], node * G[N])
+void tab_to_G_skier(int Gtab[N][N], node * G[N])
 {
 	for (int i = 0; i < N; i++)
 	{
@@ -131,11 +134,11 @@ void main()
 	for (int i = 0; i < N; i++)
 		G[i] = NULL;
 
-	tab_to_lists(Gt, G);
+	tab_to_G(Gt, G);
 	bool visited[N];
 	int times[N];
 	int parent[N];
-	DFS(visited, times, G, parent);
+	DFS(G);
 
 	cout << endl;
 
@@ -143,9 +146,9 @@ void main()
 	node * Gs[N];
 	for (int i = 0; i < N; i++)
 		Gs[i] = NULL;
-	tab_to_lists_skier(Gts, Gs);
+	tab_to_G_skier(Gts, Gs);
 
-	DFS(visited, times, Gs, parent);
+	DFS(Gs);
 
 	int a;
 	cin >> a;
