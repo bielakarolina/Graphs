@@ -1,10 +1,12 @@
 #include <iostream>
 #include <limits>
+#include <climits>
+
 using namespace std;
 
 struct node
 {
-	int n;			// nr wierzcho³ka
+	int n;			// nr wierzchoï¿½ka
 	int w;
 	node * next;
 };
@@ -49,7 +51,7 @@ bool Bellman_Ford(node * G[], int d[], int parent[], int s)
 {
 	for (int i = 0; i < V; i++)
 	{
-		d[i] = INT_MAX/2;		// ¿eby przy relaksacji nie przekroczyæ zakresu
+		d[i] = INT_MAX/2;		// ï¿½eby przy relaksacji nie przekroczyï¿½ zakresu
 		parent[i] = NULL;
 	}
 	d[s] = 0;
@@ -82,7 +84,7 @@ int main()
 
 	int Gt[V][V] = { { 0, 4, 0, 1, 0 },{ 4, 0, 0, 0, 1 },{ 0, 0, 0, 0, 1 },{ 1, 0, 0, 0, 1 },{ 0, 1, 1, 1, 0 } };
 
-	node * G[V];			// tablica list s¹siedztwa
+	node * G[V];			// tablica list sï¿½siedztwa
 	for (int i = 0; i < V; i++)
 		G[i] = NULL;
 

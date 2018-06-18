@@ -4,7 +4,7 @@ using namespace std;
 
 struct node
 {
-	int n;			// nr wierzcho³ka
+	int n;			// nr wierzchoï¿½ka
 	node * next;
 };
 
@@ -12,7 +12,7 @@ struct node
 const int V = 5;
 
 
-bool czy_dwudzielny(node * G[V], int colour[V])		// s - wierzcho³ek startowy
+bool czy_dwudzielny(node * G[V], int colour[V])		// s - wierzchoï¿½ek startowy
 {
 	queue < int > Q;
 	for (int i = 0; i < V; i++)
@@ -22,9 +22,9 @@ bool czy_dwudzielny(node * G[V], int colour[V])		// s - wierzcho³ek startowy
 	{
 		if (colour[i] == 0)
 		{
-			colour[i] = 1;		// wierzcho³ek startowy - na czerwono
-			Q.push(i);			// wrzucamy wierzcho³ek do kolejki
-			while (!empty(Q))
+			colour[i] = 1;		// wierzchoï¿½ek startowy - na czerwono
+			Q.push(i);			// wrzucamy wierzchoï¿½ek do kolejki
+			while (!Q.empty())
 			{
 				int v = Q.front();
 				Q.pop();
